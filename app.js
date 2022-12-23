@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('./routes');
-const { MSG_ROUTE_NOT_FOUND } = require('./utils/constants');
+const { errorMessage } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -24,12 +24,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
 app.use(requestLogger);
 app.use(routes);
 
-app.use((req, res, next) => next(new NotFoundError(MSG_ROUTE_NOT_FOUND)));
+app.use((req, res, next) => next(new NotFoundError(errorMessage.other.ROUTE_NOT_FOUND)));
 app.use(errorLogger);
 app.use(errors()); // handling Joi errors
 
