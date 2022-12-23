@@ -27,10 +27,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 app.use(requestLogger);
 app.use(routes);
 
+app.use((req, res, next) => next(new NotFoundError(MSG_ROUTE_NOT_FOUND)));
 app.use(errorLogger);
 app.use(errors()); // handling Joi errors
-
-app.use((req, res, next) => next(new NotFoundError(MSG_ROUTE_NOT_FOUND)));
 
 app.use(errorHandler);
 
