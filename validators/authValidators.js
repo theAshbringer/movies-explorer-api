@@ -1,7 +1,14 @@
 const { celebrate, Joi } = require('celebrate');
 const { LINK_PATTERN } = require('../utils/constants');
 
-module.exports = celebrate({
+module.exports.signinValidator = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
+module.exports.signupValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),

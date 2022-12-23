@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { login, createUser, logout } = require('../controllers/users');
 const auth = require('../middlewares/auth');
-const signinValidator = require('../validators/signin-validator');
-const signupValidator = require('../validators/signup-validator');
+const { signinValidator, signupValidator } = require('../validators/authValidators');
 
 router.use('/signin', signinValidator, login);
 router.use('/signup', signupValidator, createUser);

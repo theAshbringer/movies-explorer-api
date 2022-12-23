@@ -3,7 +3,7 @@ const { Schema } = require('mongoose');
 const mongoose = require('mongoose');
 const UnauthorizedError = require('../errors/unauth-err');
 const { MSG_USER_UNAUTHORIZED } = require('../utils/constants');
-const { emailValidator } = require('../validators/schema-validators');
+const { emailValidator } = require('../validators/schemaValidators');
 
 const userSchema = new Schema({
   name: {
