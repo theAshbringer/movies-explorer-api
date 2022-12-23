@@ -12,7 +12,7 @@ module.exports.createMovie = (req, res, next) => {
 
   Movie.create({ ...movie, owner: req.user })
     .then(({ _id }) => Movie.findById(_id)
-      .orFail(new NotFoundError())
+      .orFail(new NotFoundError(errorMessage.movie.NOT_FOUND))
       .populate(['owner'])
       .then((newMovie) => res.status(statusCode.CREATED).send(newMovie)))
     .catch((err) => {
