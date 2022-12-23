@@ -2,6 +2,7 @@
 module.exports.statusCode = {
   CREATED: 201,
   SUCCESS: 200,
+  NO_CONTENT: 204,
   INVALID_DATA: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
@@ -44,6 +45,8 @@ module.exports.errorMessage = {
     DEFAULT: 'На сервере произошла ошибка',
   },
 };
+
+module.exports.DEV_SECRET = 'secret-key';
 
 // Patterns for validation
 module.exports.OBJECT_ID_PATTERN = /^[0-9a-fA-F]{24}$/;

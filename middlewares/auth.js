@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauth-err');
-const { MSG_MISSING_AUTH_HEADER } = require('../utils/constants');
+const { errorMessage, DEV_SECRET } = require('../utils/constants');
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
@@ -8,14 +8,14 @@ module.exports = (req, res, next) => {
   const { NODE_ENV, JWT_SECRET } = process.env;
 
   if (!token) {
-    return next(new UnauthorizedError(MSG_MISSING_AUTH_HEADER));
+    return next(new UnauthorizedError(errorMessage.auth.MISSING_AUTH_HEADER));
   }
 
   try {
-    req.user = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key');
+    req.user = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : DEV_SECRET);
 
     next();
   } catch (error) {
-    next(new UnauthorizedError(MSG_MISSING_AUTH_HEADER));
+    next(new UnauthorizedError(errorMessage.auth.MISSING_AUTH_HEADER));
   }
 };
