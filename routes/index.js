@@ -6,7 +6,7 @@ const { signinValidator, signupValidator } = require('../validators/authValidato
 router.use('/signin', signinValidator, login);
 router.use('/signup', signupValidator, createUser);
 router.use(auth);
-router.use('/cards', require('./movies'));
+router.use('/movies', require('./movies'));
 router.use('/users', require('./users'));
 
 router.use('/logout', logout);
