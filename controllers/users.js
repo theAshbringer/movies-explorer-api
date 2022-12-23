@@ -9,6 +9,8 @@ const {
   VALIDATION_ERROR,
   MSG_INVALID_USER_DATA,
   USER_NOT_UNIQUE_ERROR,
+  statusCode,
+  errorMessage,
 } = require('../utils/constants');
 const NotFoundError = require('../errors/not-found-err');
 const ConflictError = require('../errors/conflict-err');
@@ -27,9 +29,10 @@ const ValidationError = require('../errors/validation-err');
 //       );
 //       res
 //         .cookie('jwt', token, {
-//           maxAge: 3600000 * 24 * 7, httpOnly: true, secure: NODE_ENV === 'production', sameSite: false,
+//           maxAge: 3600000 * 24 * 7, httpOnly: true, secure: NODE_ENV === 'production',
+// sameSite: false,
 //         })
-//         .status(SUCCESS)
+//         .status(statusCode.SUCCESS)
 //         .send({ data: { _id: user._id, email: user.email } });
 //     })
 //     .catch(next);
@@ -51,7 +54,7 @@ const ValidationError = require('../errors/validation-err');
 //     }))
 //     .then(({
 //       name, about, avatar, email,
-//     }) => res.status(CREATED).send({
+//     }) => res.status(statusCode.CREATED).send({
 //       name, about, avatar, email,
 //     }))
 //     .catch((err) => {
@@ -72,8 +75,8 @@ module.exports.updateProfile = (req, res, next) => {
     req.user._id,
     { name, email },
     { returnDocument: 'after', runValidators: true },
-  ).orFail(new NotFoundError(MSG_USER_NOT_FOUND))
-    .then((user) => res.status(SUCCESS).send(user))
+  ).orFail(new NotFoundError(errorMessage.user.NOT_FOUND))
+    .then((user) => res.status(statusCode.SUCCESS).send(user))
     .catch((err) => {
       if (err.name === VALIDATION_ERROR) {
         return next(new ValidationError(MSG_INVALID_USER_DATA));
@@ -84,7 +87,7 @@ module.exports.updateProfile = (req, res, next) => {
 
 module.exports.getProfile = (req, res, next) => {
   const { _id } = req.user;
-  User.findById(_id).orFail(new NotFoundError(MSG_USER_NOT_FOUND))
-    .then((user) => res.status(SUCCESS).send(user))
+  User.findById(_id).orFail(new NotFoundError(errorMessage.user.NOT_FOUND))
+    .then((user) => res.status(statusCode.SUCCESS).send(user))
     .catch(next);
 };
