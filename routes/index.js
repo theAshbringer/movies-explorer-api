@@ -9,6 +9,6 @@ router.use(auth);
 router.use('/movies', require('./movies'));
 router.use('/users', require('./users'));
 
-router.use('/logout', logout);
+router.use('/signout', logout);
 
 module.exports = router;

@@ -38,7 +38,7 @@ module.exports.errorMessage = {
   auth: {
     AUTH_SUCCESS: 'Успешная авторизация',
     BAD_AUTH: 'Неправильные почта или пароль',
-    MISSING_AUTH_HEADER: 'Передан некорректный токен в заголовке',
+    MISSING_TOKEN: 'Передан некорректный токен',
   },
   other: {
     ROUTE_NOT_FOUND: 'Запрашиваемый путь не найден',
