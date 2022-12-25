@@ -12,12 +12,14 @@ const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsOptions } = require('./middlewares/cors');
 const { DEV_MONGODB_PATH } = require('./utils/config');
+const { limiter } = require('./middlewares/rateLimit');
 
 require('dotenv').config();
 
 const { PORT = 3000, NODE_ENV, MONGODB_PATH } = process.env;
 
 const app = express();
+app.use(limiter);
 app.use(helmet());
 app.use(cors(corsOptions));
 
