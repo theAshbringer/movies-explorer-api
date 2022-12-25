@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('./routes');
-const { errorMessage } = require('./utils/constants');
+const { errorMessage, DEV_MONGODB_PATH } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -14,7 +14,7 @@ const { corsOptions } = require('./middlewares/cors');
 
 require('dotenv').config();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, MONGODB_PATH } = process.env;
 
 const app = express();
 app.use(helmet());
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
+mongoose.connect(NODE_ENV === 'production' ? MONGODB_PATH : DEV_MONGODB_PATH);
 
 app.use(requestLogger);
 app.use(routes);
@@ -36,3 +36,4 @@ app.use(errors()); // handling Joi errors
 app.use(errorHandler);
 
 app.listen(PORT);
+console.log(`Сервер успешно запущен, порт ${PORT}.`);
