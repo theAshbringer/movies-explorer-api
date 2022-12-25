@@ -40,7 +40,7 @@ module.exports.deleteMovie = (req, res, next) => {
     // eslint-disable-next-line consistent-return
     .then((movie) => {
       if (String(movie.owner) !== userId) {
-        return Promise.reject(new ForbiddenError(errorMessage.movie.FORBIDDEN));
+        return Promise.reject(new ForbiddenError(errorMessage.movie.FOREIGN));
       }
     })
     .then(() => Movie.deleteOne({ _id: id }).orFail(
