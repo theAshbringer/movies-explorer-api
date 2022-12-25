@@ -37,11 +37,11 @@ module.exports.deleteMovie = (req, res, next) => {
 
   Movie.findById(id)
     .orFail(new NotFoundError(errorMessage.movie.NOT_FOUND))
-    // eslint-disable-next-line consistent-return
     .then((movie) => {
       if (String(movie.owner) !== userId) {
         return Promise.reject(new ForbiddenError(errorMessage.movie.FOREIGN));
       }
+      return movie;
     })
     .then(() => Movie.deleteOne({ _id: id }).orFail(
       new NotFoundError(errorMessage.movie.NOT_FOUND),
