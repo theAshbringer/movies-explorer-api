@@ -1,5 +1,4 @@
 const Movie = require('../models/movie');
-const { throwMessage } = require('../utils/common');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const ValidationError = require('../errors/validation-err');
@@ -46,6 +45,6 @@ module.exports.deleteMovie = (req, res, next) => {
     .then(() => Movie.deleteOne({ _id: id }).orFail(
       new NotFoundError(errorMessage.movie.NOT_FOUND),
     ))
-    .then(() => res.status(statusCode.SUCCESS).send(throwMessage(MOVIE_DELETED)))
+    .then(() => res.status(statusCode.SUCCESS).send(({ message: MOVIE_DELETED })))
     .catch(next);
 };
