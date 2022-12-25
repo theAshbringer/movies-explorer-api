@@ -6,11 +6,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('./routes');
-const { errorMessage, DEV_MONGODB_PATH } = require('./utils/constants');
+const { errorMessage } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsOptions } = require('./middlewares/cors');
+const { DEV_MONGODB_PATH } = require('./utils/config');
 
 require('dotenv').config();
 
