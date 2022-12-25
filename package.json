@@ -1,8 +1,7 @@
 {
   "name": "movies-explorer-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
@@ -11,7 +10,6 @@
   },
   "author": "theAshbringer",
   "license": "ISC",
-  "homepage": "https://github.com/theAshbringer/express-mesto-gha",
   "devDependencies": {
     "eslint": "^8.27.0",
     "eslint-config-airbnb-base": "^15.0.0",
