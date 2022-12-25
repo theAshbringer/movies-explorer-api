@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   const { NODE_ENV, JWT_SECRET } = process.env;
 
   if (!token) {
-    return next(new UnauthorizedError(errorMessage.auth.MISSING_AUTH_HEADER));
+    return next(new UnauthorizedError(errorMessage.auth.MISSING_TOKEN));
   }
 
   try {
@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
 
     next();
   } catch (error) {
-    next(new UnauthorizedError(errorMessage.auth.MISSING_AUTH_HEADER));
+    next(new UnauthorizedError(errorMessage.auth.MISSING_TOKEN));
   }
 };
