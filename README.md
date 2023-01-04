@@ -1,34 +1,16 @@
-# 
+# movies-explorer-api
 
-## Repo link
+API accessed by [http](http://api.fordragon.movies.nomoredomains.club) and [https](https://api.fordragon.movies.nomoredomains.club) protocols.
 
+Authorization is valid only with HTTPS, as the JWT token cookie has the `secure: true` setting.
 
-## API
-There are USER and CARD entities. All available actions are listed below.
-
-### Users:
-
-| Route            | Methods | Description           | Status             |
-|------------------|---------|-----------------------|--------------------|
-| /users           | GET     | Get all users         | 200, 500           |
-|                  | POST    | Create user           | 201, 400, 500      |
-| /users/:userId   | GET     | Get user by ID        | 200, 400, 404, 500 |
-| /users/me        | PATCH   | Update user's profile | 200, 400, 500      |
-| /users/me/avatar | PATCH   | Update user's avatar  | 200, 400, 500      |
-
-### Cards:
-
-| Route                | Methods | Description       | Status             |
-|----------------------|---------|-------------------|--------------------|
-| /cards               | GET     | Get all cards     | 200, 500           |
-|                      | POST    | Add card          | 201, 400, 500      |
-| /cards/:cardId       | DELETE  | Delete card by ID | 200, 400, 404, 500 |
-| /cards/:cardId/likes | PUT     | Like card         | 200, 400, 404, 500 |
-|                      | DELETE  | Dislike card      | 200, 400, 404, 500 |
-
+## Info
+API supports registration and authorization, access to user profile, managing user's movies list.
 
 ## Run project
 
 `npm run start` — run server
 
 `npm run dev` — run server with hot-reload
+
+`npm run lint` — run eslint
