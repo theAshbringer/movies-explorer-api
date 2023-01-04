@@ -49,7 +49,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       ...req.body, password: hash,
     }))
-    .then((newUser) => res.status(statusCode.CREATED).send(newUser))
+    .then(({ _id, email }) => res.status(statusCode.CREATED).send({ _id, email }))
     .catch((err) => {
       if (err.code === statusCode.USER_NOT_UNIQUE_ERROR) {
         return next(new ConflictError(errorMessage.user.REGISTERED_USER));
@@ -69,7 +69,7 @@ module.exports.updateProfile = (req, res, next) => {
     { name, email },
     { returnDocument: 'after', runValidators: true },
   ).orFail(new NotFoundError(errorMessage.user.NOT_FOUND))
-    .then((user) => res.status(statusCode.SUCCESS).send(user))
+    .then((user) => res.status(statusCode.SUCCESS).send({ name: user.name, email: user.email }))
     .catch((err) => {
       if (err.name === errorName.VALIDATION_ERROR) {
         return next(new ValidationError(errorMessage.user.INVALID_DATA));
@@ -81,6 +81,6 @@ module.exports.updateProfile = (req, res, next) => {
 module.exports.getProfile = (req, res, next) => {
   const { _id } = req.user;
   User.findById(_id).orFail(new NotFoundError(errorMessage.user.NOT_FOUND))
-    .then((user) => res.status(statusCode.SUCCESS).send(user))
+    .then(({ name, email }) => res.status(statusCode.SUCCESS).send({ name, email }))
     .catch(next);
 };
