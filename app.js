@@ -19,7 +19,6 @@ require('dotenv').config();
 const { PORT = 3000, NODE_ENV, MONGODB_PATH } = process.env;
 
 const app = express();
-app.use(limiter);
 app.use(helmet());
 app.use(cors(corsOptions));
 
@@ -30,6 +29,7 @@ app.use(cookieParser());
 mongoose.connect(NODE_ENV === 'production' ? MONGODB_PATH : DEV_MONGODB_PATH);
 
 app.use(requestLogger);
+app.use(limiter);
 app.use(routes);
 
 app.use((req, res, next) => next(new NotFoundError(errorMessage.other.ROUTE_NOT_FOUND)));
