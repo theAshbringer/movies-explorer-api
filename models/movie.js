@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { urlValidator } = require('../validators/schema-validators');
+const { urlValidator } = require('../validators/schemaValidators');
 
 const movieSchema = new Schema({
   country: {
@@ -43,7 +43,7 @@ const movieSchema = new Schema({
     required: true,
   },
   movieId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true,
   },
   nameRU: {
