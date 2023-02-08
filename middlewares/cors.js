@@ -2,8 +2,8 @@
 const allowedCors = [
   'http://localhost:3005',
   'https://theAshbringer.github.io',
-  'https://mesto.theashbringer.nomoredomains.club',
-  'http://mesto.theashbringer.nomoredomains.club',
+  'http://fordragon.movies-explorer.nomoredomains.club',
+  'https://fordragon.movies-explorer.nomoredomains.club',
 ];
 
 module.exports.corsOptions = {
