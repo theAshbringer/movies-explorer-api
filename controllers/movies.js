@@ -6,20 +6,24 @@ const {
   statusCode, errorMessage, errorName, MOVIE_DELETED,
 } = require('../utils/constants');
 
-module.exports.createMovie = (req, res, next) => {
+module.exports.createMovie = async (req, res, next) => {
   const movie = req.body;
+  const alreadyExist = await Movie.exists({ ...movie, owner: req.user });
 
-  Movie.create({ ...movie, owner: req.user })
-    .then(({ _id }) => Movie.findById(_id)
-      .orFail(new NotFoundError(errorMessage.movie.NOT_FOUND))
-      .populate(['owner'])
-      .then((newMovie) => res.status(statusCode.CREATED).send(newMovie)))
-    .catch((err) => {
-      if (err.name === errorName.VALIDATION_ERROR) {
-        return next(new ValidationError(errorMessage.movie.INVALID_DATA));
-      }
-      return next(err);
-    });
+  if (!alreadyExist) {
+    Movie.create({ ...movie, owner: req.user })
+      .then(({ _id }) => Movie.findById(_id)
+        .orFail(new NotFoundError(errorMessage.movie.NOT_FOUND))
+        .populate(['owner'])
+        .then((newMovie) => res.status(statusCode.CREATED).send(newMovie)))
+      .catch((err) => {
+        if (err.name === errorName.VALIDATION_ERROR) {
+          return next(new ValidationError(errorMessage.movie.INVALID_DATA));
+        }
+        return next(err);
+      });
+  }
+  res.status(statusCode.NO_CONTENT);
 };
 
 module.exports.getMovies = (req, res, next) => {
