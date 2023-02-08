@@ -30,7 +30,7 @@ module.exports.login = (req, res, next) => {
           sameSite: false,
         })
         .status(statusCode.SUCCESS)
-        .send({ data: { _id: user._id, email: user.email } });
+        .send({ data: { _id: user._id, email: user.email, name: user.name } });
     })
     .catch(next);
 };
