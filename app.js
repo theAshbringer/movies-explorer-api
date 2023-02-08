@@ -29,7 +29,9 @@ app.use(cookieParser());
 mongoose.connect(NODE_ENV === 'production' ? MONGODB_PATH : DEV_MONGODB_PATH);
 
 app.use(requestLogger);
-app.use(limiter);
+if (NODE_ENV === 'production') {
+  app.use(limiter);
+}
 app.use(routes);
 
 app.use((req, res, next) => next(new NotFoundError(errorMessage.other.ROUTE_NOT_FOUND)));
@@ -39,4 +41,4 @@ app.use(errors()); // handling Joi errors
 app.use(errorHandler);
 
 app.listen(PORT);
-console.log(`Сервер успешно запущен, порт ${PORT}.`);
+console.info(`Сервер успешно запущен, порт ${PORT}.`);
